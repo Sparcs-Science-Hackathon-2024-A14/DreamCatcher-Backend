@@ -23,6 +23,11 @@ public class Quest extends BaseEntity{
     @GeneratedValue
     @Column(name = "quest_id")
     private Long id;
+    private String questName;
+    private String badgeName;
+
+    private Double posX;
+    private Double posY;
 
     private Double posX;
     private Double posY;
