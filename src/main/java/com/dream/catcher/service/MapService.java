@@ -1,8 +1,12 @@
 package com.dream.catcher.service;
 
+import com.dream.catcher.dto.QuestPopupDto;
 import com.dream.catcher.dto.SpotPositionDto;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import com.dream.catcher.repository.QuestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +14,24 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MapService {
     private final RedisService redisService; // RedisService를 주입받습니다.
+    private final QuestRepository questRepository;
+
+
+    public QuestPopupDto getQuestNearByMember(Long regionId, Double posX, Double posY){
+
+        Long nearByQuestId = calculateNearByQuest(regionId, posX, posY);
+        return questRepository.findById(nearByQuestId)
+                .map(quest -> QuestPopupDto.builder()
+                        .questId(quest.getId())
+                        .questName(quest.getQuestName())
+                        .questImg(quest.getQuestImg())
+                        .questDescription(quest.getQuestDescription())
+                        .build())
+                .orElseGet(() -> null);
+    }
+
     // 특정 region의 모든 스팟과 비교하여 10m 이내의 스팟 ID를 반환하는 메서드
-    public Long getNearbySpotId(Long regionId, Double userX, Double userY) {
+    public Long calculateNearByQuest(Long regionId, Double userX, Double userY) {
         List<SpotPositionDto> spots = redisService.getAllSpotPosition(regionId); // 해당 region의 스팟 리스트 가져오기
 
         for (SpotPositionDto spot : spots) {

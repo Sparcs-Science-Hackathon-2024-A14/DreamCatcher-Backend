@@ -1,6 +1,7 @@
 package com.dream.catcher.controller;
 
 import com.dream.catcher.controller.swagger.MapPageInfo;
+import com.dream.catcher.dto.QuestPopupDto;
 import com.dream.catcher.dto.SpotPositionDto;
 import com.dream.catcher.service.MapService;
 import com.dream.catcher.service.RedisService;
@@ -22,7 +23,7 @@ public class MapPageAPI implements MapPageInfo {
 
     // 유저의 좌표를 기반으로 근처 스팟 ID를 조회하는 API
     @GetMapping("/nearby/{regionId}/{userX}/{userY}")
-    public Long getNearbySpotId(@PathVariable Long regionId, @PathVariable Double userX, @PathVariable Double userY) {
-        return mapService.getNearbySpotId(regionId, userX, userY); // 근처 스팟 ID 반환
+    public QuestPopupDto getNearbySpotId(@PathVariable Long regionId, @PathVariable Double userX, @PathVariable Double userY) {
+        return mapService.getQuestNearByMember(regionId, userX, userY); // 근처 스팟 ID 반환
     }
 }
