@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MemberQuestRepository extends JpaRepository<MemberQuestRepository, Long> {
+public interface MemberQuestRepository extends JpaRepository<MemberQuest, Long> {
 
     // 사용자 퀘스트 클리어 여부
     @Query("select (count(mq) > 0) from MemberQuest mq " +
