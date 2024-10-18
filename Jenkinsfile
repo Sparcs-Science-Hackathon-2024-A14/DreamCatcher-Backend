@@ -6,6 +6,9 @@ pipeline {
     }
 
     environment {
+        DB_URL = "${DB_URL}" // Jenkins에서 설정한 DB_URL 환경 변수 사용
+        DB_USERNAME = "${DB_USERNAME}" // Jenkins에서 설정한 DB_USERNAME 환경 변수 사용
+        DB_PASSWORD = "${DB_PASSWORD}" // Jenkins에서 설정한 DB_PASSWORD 환경 변수 사용
         DOCKER_IMAGE = "$DOCKER_USERNAME/bepo:latest" // Docker 이미지 이름 설정
     }
 
