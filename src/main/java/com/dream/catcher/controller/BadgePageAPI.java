@@ -7,11 +7,13 @@ import com.dream.catcher.service.BadgeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
-@RestController("api/2")
+@RestController
+@RequestMapping("/api/badgePage") // 클래스 레벨에서 URL 매핑
 @RequiredArgsConstructor
 public class BadgePageAPI {
 

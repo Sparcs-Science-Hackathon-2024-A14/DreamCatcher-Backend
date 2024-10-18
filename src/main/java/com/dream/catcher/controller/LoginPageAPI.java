@@ -7,11 +7,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
-@RestController("api/")
+@RestController
+@RequestMapping("/api/login")
 @RequiredArgsConstructor
 public class LoginPageAPI {
 
@@ -24,7 +26,7 @@ public class LoginPageAPI {
      * @param age  사용자 나이
      * @return LoginResponseDto
      */
-    @GetMapping("login/{name}/{age}")
+    @GetMapping("{name}/{age}")
     public LoginResponseDto getAccessLogin(
             @PathVariable("name") String name,
             @PathVariable("age") Long age
