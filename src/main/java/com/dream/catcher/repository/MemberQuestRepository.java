@@ -1,12 +1,11 @@
 package com.dream.catcher.repository;
-
+y
 import com.dream.catcher.domain.MemberQuest;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
@@ -21,4 +20,5 @@ public interface MemberQuestRepository extends JpaRepository<MemberQuestReposito
     @EntityGraph(attributePaths = {"quest"})
     @Query("select mq from MemberQuest mq where mq.member.id =:id")
     public List<MemberQuest> memberQuestList(@Param("id") Long id);
+
 }
