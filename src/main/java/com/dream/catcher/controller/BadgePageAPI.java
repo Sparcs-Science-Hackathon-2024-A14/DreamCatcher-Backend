@@ -1,5 +1,6 @@
 package com.dream.catcher.controller;
 
+import com.dream.catcher.controller.swagger.BadgePageInfo;
 import com.dream.catcher.domain.Member;
 import com.dream.catcher.dto.BadgeListResponseDto;
 import com.dream.catcher.dto.LoginResponseDto;
@@ -13,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/badgePage") // 클래스 레벨에서 URL 매핑
+@RequestMapping("/api/badge") // 클래스 레벨에서 URL 매핑
 @RequiredArgsConstructor
-public class BadgePageAPI {
+public class BadgePageAPI implements BadgePageInfo {
 
     private final BadgeService badgeService;
 
-    @GetMapping("badge/{id}")
+    @GetMapping("/{id}")
     public BadgeListResponseDto getBadgeList(
             @PathVariable("id") Long id
     ) {

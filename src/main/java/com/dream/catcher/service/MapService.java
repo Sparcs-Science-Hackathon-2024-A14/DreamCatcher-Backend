@@ -1,14 +1,14 @@
 package com.dream.catcher.service;
 
 import com.dream.catcher.dto.SpotPositionDto;
-import java.util.ArrayList;
+
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CheckRecentSpotService {
+public class MapService {
     private final RedisService redisService; // RedisService를 주입받습니다.
     // 특정 region의 모든 스팟과 비교하여 10m 이내의 스팟 ID를 반환하는 메서드
     public Long getNearbySpotId(Long regionId, Double userX, Double userY) {

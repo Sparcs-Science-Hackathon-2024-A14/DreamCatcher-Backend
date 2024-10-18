@@ -1,5 +1,6 @@
 package com.dream.catcher.controller;
 
+import com.dream.catcher.controller.swagger.LoginPageInfo;
 import com.dream.catcher.domain.Member;
 import com.dream.catcher.dto.LoginResponseDto;
 import com.dream.catcher.service.LoginService;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/login")
-public class LoginPageAPI {
+public class LoginPageAPI implements LoginPageInfo {
 
     private final LoginService loginService;
 
