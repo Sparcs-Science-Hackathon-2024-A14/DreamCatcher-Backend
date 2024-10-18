@@ -16,14 +16,16 @@ import java.util.Optional;
 public class BadgePageAPI {
 
     private final BadgeService badgeService;
+
     @GetMapping("badge/{id}")
     public BadgeListResponseDto getBadgeList(
             @PathVariable("id") Long id
-    ){
+    ) {
         return BadgeListResponseDto.builder()
                 .badgeDtoList(badgeService.getBadgeList(id))
                 .build();
     }
+}
 
 
 

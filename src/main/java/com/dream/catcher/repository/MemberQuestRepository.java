@@ -1,5 +1,4 @@
 package com.dream.catcher.repository;
-y
 import com.dream.catcher.domain.MemberQuest;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;

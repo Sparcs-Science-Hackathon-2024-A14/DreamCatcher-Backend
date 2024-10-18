@@ -19,15 +19,16 @@ public class LoginPageAPI {
 
     /**
      * 로그인 서비스
+     *
      * @param name 사용자 이름
-     * @param age 사용자 나이
+     * @param age  사용자 나이
      * @return LoginResponseDto
      */
     @GetMapping("login/{name}/{age}")
     public LoginResponseDto getAccessLogin(
             @PathVariable("name") String name,
             @PathVariable("age") Long age
-    ){
+    ) {
         Optional<Member> member = loginService.login(name, age);
 
         boolean isLoginAccessed = member.isPresent();
@@ -38,4 +39,5 @@ public class LoginPageAPI {
                 .id(id)
                 .build();
     }
+}
 

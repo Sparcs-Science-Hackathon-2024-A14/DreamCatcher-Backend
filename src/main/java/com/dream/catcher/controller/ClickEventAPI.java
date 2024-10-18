@@ -12,9 +12,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/click")
 public class ClickEventAPI {
 
-    @PostMapping("/{spotId}")
-    public SpotPositionDto getSpotInfo(@PathVariable Long spotId){
-
-    }
 
 }
