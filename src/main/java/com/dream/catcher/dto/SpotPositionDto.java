@@ -7,6 +7,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SpotPositionDto {
     private Long id; // Spot의 id
-    private Double x; // x좌표 -> 경도
-    private Double y; // y좌표 -> 위도
+    private Double posX; // x좌표 -> 경도
+    private Double posY; // y좌표 -> 위도
 }

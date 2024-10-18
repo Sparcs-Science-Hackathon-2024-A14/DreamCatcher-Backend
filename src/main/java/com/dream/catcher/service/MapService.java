@@ -4,7 +4,6 @@ import com.dream.catcher.dto.QuestPopupDto;
 import com.dream.catcher.dto.SpotPositionDto;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.dream.catcher.repository.QuestRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +34,7 @@ public class MapService {
         List<SpotPositionDto> spots = redisService.getAllSpotPosition(regionId); // 해당 region의 스팟 리스트 가져오기
 
         for (SpotPositionDto spot : spots) {
-            double distance = calculateDistance(userX, userY, spot.getX(), spot.getY());
+            double distance = calculateDistance(userX, userY, spot.getPosX(), spot.getPosY());
             if (distance <= 10.0) { // 10m 이내의 스팟인지 확인
                 return spot.getId(); // 첫 번째로 발견된 근처 스팟의 ID 반환
             }
