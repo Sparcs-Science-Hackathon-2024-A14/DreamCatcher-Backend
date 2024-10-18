@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/login")
 @RequiredArgsConstructor
+@RequestMapping("/api/login")
 public class LoginPageAPI {
 
     private final LoginService loginService;
