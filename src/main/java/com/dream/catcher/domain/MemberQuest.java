@@ -20,6 +20,8 @@ public class MemberQuest extends BaseEntity{
     @Column(name = "member_quest_id")
     private Long id;
 
+    private boolean isCleared;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
