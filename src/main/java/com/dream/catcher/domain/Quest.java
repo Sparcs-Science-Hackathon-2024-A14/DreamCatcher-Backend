@@ -29,9 +29,6 @@ public class Quest extends BaseEntity{
     private Double posX;
     private Double posY;
 
-    private Double posX;
-    private Double posY;
-
     private String questImg;
     private String badgeImg;
 
