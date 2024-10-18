@@ -52,7 +52,7 @@ pipeline {
             steps {
                 script {
                     // Docker 이미지 빌드
-                    sh 'docker build -t $DOCKER_IMAGE .' // Docker 이미지 이름을 환경 변수로 설정
+                    sh 'docker build --no-cache -t $DOCKER_IMAGE .' // Docker 이미지 이름을 환경 변수로 설정
                 }
             }
         }
