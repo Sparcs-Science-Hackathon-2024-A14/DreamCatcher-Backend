@@ -24,6 +24,9 @@ public class Quest extends BaseEntity{
     @Column(name = "quest_id")
     private Long id;
 
+    private Double posX;
+    private Double posY;
+
     private String questImg;
     private String badgeImg;
 
