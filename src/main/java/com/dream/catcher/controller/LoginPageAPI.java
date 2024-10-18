@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
-@RestController
+@RestController("api/")
 @RequiredArgsConstructor
 public class LoginPageAPI {
 
