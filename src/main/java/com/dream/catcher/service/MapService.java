@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 public class MapService {
     private final RedisService redisService; // RedisService를 주입받습니다.
     private final QuestRepository questRepository;
+    private static final int R = 6371; // 지구의 반지름 (킬로미터)
 
 
     public SpotPositionResponseDto getRegionSpotPosition(Long regionId) {
@@ -64,12 +65,33 @@ public class MapService {
                 return spot.getId(); // 첫 번째로 발견된 근처 스팟의 ID 반환
             }
         }
-
         return null; // 10m 이내의 스팟이 없을 경우 null 반환
     }
+
     // 유클리드 거리 계산
     // 지구가 구체
-    private double calculateDistance(Double x1, Double y1, Double x2, Double y2) {
-        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    // Haversine 공식 사용 예시
+    public static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+        // 위도와 경도를 라디안으로 변환
+        double lat1Rad = Math.toRadians(lat1);
+        double lon1Rad = Math.toRadians(lon1);
+        double lat2Rad = Math.toRadians(lat2);
+        double lon2Rad = Math.toRadians(lon2);
+
+        // Haversine 공식을 사용하여 거리 계산
+        double dlon = lon2Rad - lon1Rad;
+        double dlat = lat2Rad - lat1Rad;
+
+        double a = Math.sin(dlat / 2) * Math.sin(dlat / 2) +
+                Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+                        Math.sin(dlon / 2) * Math.sin(dlon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        // 거리를 미터로 변환
+        double distance = R * c * 1000; // 킬로미터를 미터로 변환
+
+        // 소수점 6자리까지 반올림
+        return Math.round(distance * 1000000.0) / 1000000.0;
     }
+
 }
