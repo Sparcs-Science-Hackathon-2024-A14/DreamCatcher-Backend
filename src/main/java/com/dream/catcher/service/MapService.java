@@ -20,8 +20,11 @@ public class MapService {
     private final QuestRepository questRepository;
     private static final int R = 6371; // 지구의 반지름 (킬로미터)
 
-
     public SpotPositionResponseDto getRegionSpotPosition(Long regionId) {
+        if (regionId == null) {
+            return null; // regionId가 null일 경우 null 반환
+        }
+
         List<SpotPositionDto> spotPositionDtoList = questRepository.getQuestList()
                 .stream()
                 .filter(Objects::nonNull)  // Null 값 필터링
@@ -35,6 +38,9 @@ public class MapService {
 
     // Dto 변환 메서드 분리
     private SpotPositionDto convertToSpotPositionDto(Quest quest) {
+        if (quest == null) {
+            return null; // quest가 null일 경우 null 반환
+        }
         return SpotPositionDto.builder()
                 .id(quest.getId())
                 .posX(quest.getPosX())
@@ -42,9 +48,16 @@ public class MapService {
                 .build();
     }
 
-    public QuestPopupResponseDto getQuestNearByMember(Long regionId, Double posX, Double posY){
+    public QuestPopupResponseDto getQuestNearByMember(Long regionId, Double posX, Double posY) {
+        if (regionId == null || posX == null || posY == null) {
+            return null; // 입력 값이 null일 경우 null 반환
+        }
 
         Long nearByQuestId = calculateNearByQuest(regionId, posX, posY);
+        if (nearByQuestId == null) {
+            return null; // 근처 퀘스트가 없는 경우 null 반환
+        }
+
         return questRepository.findById(nearByQuestId)
                 .map(quest -> QuestPopupResponseDto.builder()
                         .questId(quest.getId())
@@ -52,12 +65,20 @@ public class MapService {
                         .questImg(quest.getQuestImg())
                         .questDescription(quest.getQuestDescription())
                         .build())
-                .orElseGet(() -> null);
+                .orElse(null); // ID로 찾는 퀘스트가 없을 경우 null 반환
     }
 
     // 특정 region의 모든 스팟과 비교하여 10m 이내의 스팟 ID를 반환하는 메서드
     public Long calculateNearByQuest(Long regionId, Double userX, Double userY) {
+        if (regionId == null || userX == null || userY == null) {
+            return null; // 입력 값이 null일 경우 null 반환
+        }
+
         List<SpotPositionDto> spots = redisService.getAllSpotPosition(regionId); // 해당 region의 스팟 리스트 가져오기
+
+        if (spots == null || spots.isEmpty()) {
+            return null; // 스팟 리스트가 비어있으면 null 반환
+        }
 
         for (SpotPositionDto spot : spots) {
             double distance = calculateDistance(userX, userY, spot.getPosX(), spot.getPosY());
@@ -68,8 +89,6 @@ public class MapService {
         return null; // 10m 이내의 스팟이 없을 경우 null 반환
     }
 
-    // 유클리드 거리 계산
-    // 지구가 구체
     // Haversine 공식 사용 예시
     public static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
         // 위도와 경도를 라디안으로 변환
@@ -93,5 +112,4 @@ public class MapService {
         // 소수점 6자리까지 반올림
         return Math.round(distance * 1000000.0) / 1000000.0;
     }
-
 }
