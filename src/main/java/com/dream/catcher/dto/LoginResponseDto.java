@@ -17,8 +17,6 @@ import lombok.extern.jackson.Jacksonized;
 @Schema(description = "로그인 결과를 담은 DTO")
 public class LoginResponseDto {
 
-    @Schema(description = "로그인 결과", example = "true")
-    public boolean isLoginAccessed;
     @Schema(description = "사용자 ID, 로그인 성공 시 반환", example = "1")
     public Long id;
 }

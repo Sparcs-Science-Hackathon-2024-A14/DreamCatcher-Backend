@@ -32,14 +32,15 @@ public class LoginPageAPI implements LoginPageInfo {
             @PathVariable("name") String name,
             @PathVariable("age") Long age
     ) {
-        Optional<Member> member = loginService.login(name, age);
+        // 로그인 시도
+        Optional<Member> optionalMember = loginService.login(name, age);
 
-        boolean isLoginAccessed = member.isPresent();
-        Long id = member.map(Member::getId).orElse(null);
+        // 멤버가 존재하지 않을 경우, 새로 등록
+        Member member = optionalMember.orElseGet(() -> loginService.register(name, age));
 
+        // 멤버 ID를 가져와 DTO 생성
         return LoginResponseDto.builder()
-                .isLoginAccessed(isLoginAccessed)
-                .id(id)
+                .id(member.getId())
                 .build();
     }
 }

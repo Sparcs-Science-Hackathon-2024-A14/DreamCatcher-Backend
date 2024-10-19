@@ -18,4 +18,15 @@ public class LoginService {
     public Optional<Member> login(String name, Long age){
         return memberRepository.isMemberLoginAllowed(name, age);
     }
+
+    public Member register(String name, Long age){
+
+        Member registerMember = Member.builder()
+                .age(age)
+                .userName(name)
+                .build();
+
+        memberRepository.save(registerMember);
+        return registerMember;
+    }
 }
