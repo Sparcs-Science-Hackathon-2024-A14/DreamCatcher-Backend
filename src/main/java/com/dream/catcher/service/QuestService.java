@@ -34,13 +34,15 @@ public class QuestService {
         nextQuest = questProcessRepository.getQuestProcess(questId, nextProcessId);
         return nextQuest.map(this::calculateNextProcess)
                 .orElseGet(()->{
-                    memberQuestRepository.save(
-                            MemberQuest.builder()
-                                    .quest(questRepository.findById(questId).orElseGet(()->null))
-                                    .member(memberRepository.findById(id).orElseGet(()->null))
-                                    .isCleared(true)
-                                    .build()
-                    );
+                    if(!memberQuestRepository.isQuestExist(id, questId)) {
+                        memberQuestRepository.save(
+                                MemberQuest.builder()
+                                        .quest(questRepository.findById(questId).orElseGet(() -> null))
+                                        .member(memberRepository.findById(id).orElseGet(() -> null))
+                                        .isCleared(true)
+                                        .build()
+                        );
+                    }
                     return null;
                 });
     }

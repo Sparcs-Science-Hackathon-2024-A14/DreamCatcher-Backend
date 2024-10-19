@@ -12,8 +12,11 @@ public interface MemberQuestRepository extends JpaRepository<MemberQuest, Long> 
 
     // 사용자 퀘스트 클리어 여부
     @Query("select (count(mq) > 0) from MemberQuest mq " +
-            "where mq.member.id = :memberId and mq.isCleared = true")
-    public boolean isQuestExist(@Param("memberId") Long memberId);
+            "where mq.member.id = :memberId and mq.quest.id = :questId")
+    public boolean isQuestExist(
+            @Param("memberId") Long memberId,
+            @Param("questId") Long questId
+            );
 
     // 사용자 뱃지 획득 내역
     @EntityGraph(attributePaths = {"quest"})
