@@ -20,12 +20,13 @@ public class QuestProcessAPI {
 
     private final QuestService questService;
 
-    @GetMapping("{quest_id}/{next_process_id}")
+    @GetMapping("{id}/{quest_id}/{next_process_id}")
     public QuestResponseDto quest(
+            @PathVariable("id") Long id,
             @PathVariable("quest_id") Long questId,
             @PathVariable("next_process_id") Long nextProcessId
     ){
-        return questService.getNextQuest(questId, nextProcessId);
+        return questService.getNextQuest(id, questId, nextProcessId);
     }
 
 

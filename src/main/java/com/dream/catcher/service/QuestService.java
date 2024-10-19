@@ -1,9 +1,13 @@
 package com.dream.catcher.service;
 
+import com.dream.catcher.domain.MemberQuest;
 import com.dream.catcher.domain.QuestProcess;
 import com.dream.catcher.domain.QuestType;
 import com.dream.catcher.dto.QuestResponseDto;
+import com.dream.catcher.repository.MemberQuestRepository;
+import com.dream.catcher.repository.MemberRepository;
 import com.dream.catcher.repository.QuestProcessRepository;
+import com.dream.catcher.repository.QuestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,13 +19,27 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class QuestService {
 
+    private final MemberQuestRepository memberQuestRepository;
     private final QuestProcessRepository questProcessRepository;
+    private final QuestRepository questRepository;
+    private final MemberRepository memberRepository;
 
-    public QuestResponseDto getNextQuest(Long questId, Long nextProcessId){
+    @Transactional
+    public QuestResponseDto getNextQuest(Long id, Long questId, Long nextProcessId){
 
         Optional<QuestProcess> nextQuest;
         nextQuest = questProcessRepository.getQuestProcess(questId, nextProcessId);
-        return nextQuest.map(this::calculateNextProcess).orElse(null);
+        return nextQuest.map(this::calculateNextProcess)
+                .orElseGet(()->{
+                    memberQuestRepository.save(
+                            MemberQuest.builder()
+                                    .quest(questRepository.findById(questId).orElseGet(()->null))
+                                    .member(memberRepository.findById(id).orElseGet(()->null))
+                                    .isCleared(true)
+                                    .build()
+                    );
+                    return null;
+                });
     }
 
     public QuestResponseDto calculateNextProcess(QuestProcess nextQuest)
