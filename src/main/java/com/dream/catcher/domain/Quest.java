@@ -26,6 +26,8 @@ public class Quest extends BaseEntity{
     private String questName;
     private String badgeName;
 
+    private Long exitQuestProcessId;
+
     private Double posX;
     private Double posY;
 

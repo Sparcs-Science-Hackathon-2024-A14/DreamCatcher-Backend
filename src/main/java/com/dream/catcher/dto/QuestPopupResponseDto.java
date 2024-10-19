@@ -19,6 +19,9 @@ public class QuestPopupResponseDto {
 
     @Schema(description = "퀘스트 ID", example = "1")
     Long questId;
+
+    @Schema(description = "퀘스트 프로세스 종료 ID")
+    Long exitQuestProcessId;
     @Schema(description = "퀘스트 이름", example = "열기구를 띄워주세요 @_@")
     String questName;
     @Schema(description = "퀘스트 이미지, S3 주소")

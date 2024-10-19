@@ -61,6 +61,7 @@ public class MapService {
         return questRepository.findById(nearByQuestId)
                 .map(quest -> QuestPopupResponseDto.builder()
                         .questId(quest.getId())
+                        .exitQuestProcessId(quest.getExitQuestProcessId())
                         .questName(quest.getQuestName())
                         .questImg(quest.getQuestImg())
                         .questDescription(quest.getQuestDescription())
