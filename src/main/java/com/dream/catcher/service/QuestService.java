@@ -1,6 +1,7 @@
 package com.dream.catcher.service;
 
 import com.dream.catcher.domain.MemberQuest;
+import com.dream.catcher.domain.Quest;
 import com.dream.catcher.domain.QuestProcess;
 import com.dream.catcher.domain.QuestType;
 import com.dream.catcher.dto.QuestResponseDto;
@@ -47,12 +48,14 @@ public class QuestService {
     public QuestResponseDto calculateNextProcess(QuestProcess currentQuest)
     {
 
-        QuestType nextQuestType = currentQuest.getQuestType();
-        if(nextQuestType.equals(QuestType.PROCESS)){
+        QuestType currentQuestType = currentQuest.getQuestType();
+        if(currentQuestType.equals(QuestType.PROCESS)){
+
 
             return QuestResponseDto.builder()
                     .id(currentQuest.getId())
                     .nextFirstId(currentQuest.getId() + 1L)
+                    .isNextBranch(questProcessRepository.findById(currentQuest.getId() + 1L).get().getQuestType().equals(QuestType.BRANCH))
                     .processImg(currentQuest.getProcessImg())
                     .processTTS(currentQuest.getProcessTTS())
                     .processDescription(currentQuest.getProcessDescription())
@@ -60,7 +63,7 @@ public class QuestService {
                     .optionSecond(currentQuest.getOptionSecond())
                     .build();
 
-        }else if(nextQuestType.equals(QuestType.BRANCH)){  // QuestType.BRANCH
+        }else if(currentQuestType.equals(QuestType.BRANCH)){  // QuestType.BRANCH
 
             Long answer = currentQuest.getAnswer();
 
