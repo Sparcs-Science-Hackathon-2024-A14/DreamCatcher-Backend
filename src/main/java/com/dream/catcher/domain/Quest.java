@@ -34,4 +34,8 @@ public class Quest extends BaseEntity{
 
     private String questDescription;
     private String badgeDescription;
+
+    // 각 분기 별 힌트
+    private String hintFirst;
+    private String hintSecond;
 }

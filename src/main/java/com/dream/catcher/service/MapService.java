@@ -1,6 +1,6 @@
 package com.dream.catcher.service;
 
-import com.dream.catcher.dto.QuestPopupDto;
+import com.dream.catcher.dto.QuestPopupResponseDto;
 import com.dream.catcher.dto.SpotPositionDto;
 
 import java.util.List;
@@ -16,11 +16,11 @@ public class MapService {
     private final QuestRepository questRepository;
 
 
-    public QuestPopupDto getQuestNearByMember(Long regionId, Double posX, Double posY){
+    public QuestPopupResponseDto getQuestNearByMember(Long regionId, Double posX, Double posY){
 
         Long nearByQuestId = calculateNearByQuest(regionId, posX, posY);
         return questRepository.findById(nearByQuestId)
-                .map(quest -> QuestPopupDto.builder()
+                .map(quest -> QuestPopupResponseDto.builder()
                         .questId(quest.getId())
                         .questName(quest.getQuestName())
                         .questImg(quest.getQuestImg())

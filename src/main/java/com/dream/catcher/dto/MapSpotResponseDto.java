@@ -19,5 +19,5 @@ public class MapSpotResponseDto {
     @Schema(description = "주변에 퀘스트가 있는지 여부", example = "true")
     boolean isSpotNearby;
     @Schema(description = "주변에 퀘스트가 있을 경우, 상단에 떠야 할 팝업에 대한 데이터")
-    QuestPopupDto questPopupDto;
+    QuestPopupResponseDto questPopupDto;
 }

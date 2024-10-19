@@ -21,8 +21,6 @@ public class QuestProcess extends BaseEntity{
     @Column(name = "quest_process_id")
     private Long id;
 
-    private Long questSeq;
-
     private QuestType questType;
 
     private String processImg;
@@ -30,7 +28,7 @@ public class QuestProcess extends BaseEntity{
     private String processTTS;
 
     // if questType is 'Branch' (분기 프로세스)
-    private String answer;
+    private Long answer;
     private String optionFirst;
     private String optionSecond;
 

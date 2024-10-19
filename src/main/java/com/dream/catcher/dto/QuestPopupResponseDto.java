@@ -15,7 +15,7 @@ import lombok.extern.jackson.Jacksonized;
 @Getter
 @Setter
 @Schema(description = "퀘스트 스팟 주변에 있거나, 퀘스트 스팟을 눌렀을 경우 반환되는 값")
-public class QuestPopupDto {
+public class QuestPopupResponseDto {
 
     @Schema(description = "퀘스트 ID", example = "1")
     Long questId;
