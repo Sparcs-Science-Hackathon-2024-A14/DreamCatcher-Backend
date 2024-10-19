@@ -27,6 +27,11 @@ public class QuestService {
     private final QuestRepository questRepository;
     private final MemberRepository memberRepository;
 
+
+    public boolean existMemberQuest(Long id, Long questId){
+        return memberQuestRepository.isQuestExist(id, questId);
+    }
+
     @Transactional
     public QuestResponseDto getNextQuest(Long id, Long questId, Long nextProcessId){
 
