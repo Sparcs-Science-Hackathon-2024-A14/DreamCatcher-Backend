@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 public class MapService {
     private final RedisService redisService; // RedisService를 주입받습니다.
     private final QuestRepository questRepository;
+    private final QuestService questService;
+
     private static final int R = 6371; // 지구의 반지름 (킬로미터)
 
     public SpotPositionResponseDto getRegionSpotPosition(Long regionId) {
@@ -48,7 +50,7 @@ public class MapService {
                 .build();
     }
 
-    public QuestPopupResponseDto getQuestNearByMember(Long regionId, Double posX, Double posY) {
+    public QuestPopupResponseDto getQuestNearByMember(Long id, Long regionId, Double posX, Double posY) {
         if (regionId == null || posX == null || posY == null) {
             return null; // 입력 값이 null일 경우 null 반환
         }
@@ -57,6 +59,9 @@ public class MapService {
         if (nearByQuestId == null) {
             return null; // 근처 퀘스트가 없는 경우 null 반환
         }
+
+        if(questService.existMemberQuest(id, nearByQuestId))
+            return null;
 
         return questRepository.findById(nearByQuestId)
                 .map(quest -> QuestPopupResponseDto.builder()

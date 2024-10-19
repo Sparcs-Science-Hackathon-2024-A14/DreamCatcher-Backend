@@ -21,6 +21,7 @@ public interface MapPageInfo {
     @Operation(summary = "사용자 주변 스팟 추적",
             description = "유저의 좌표를 기반으로 10M이내 스팟을 조회합니다. 10M 이내 스팟이 존재하지 않을 경우 빈 DTO를 반환합니다.")
     QuestPopupResponseDto getNearbySpotId(
+            Long id,
             @Parameter(description = "지역 ID(1로 고정할 것)", required = true) Long regionId,
             @Parameter(description = "유저 X 좌표", required = true) Double userX,
             @Parameter(description = "유저 Y 좌표", required = true) Double userY

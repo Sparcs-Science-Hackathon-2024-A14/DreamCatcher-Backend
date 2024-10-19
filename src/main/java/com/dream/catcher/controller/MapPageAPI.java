@@ -30,8 +30,8 @@ public class MapPageAPI implements MapPageInfo {
 
 
     // 유저의 좌표를 기반으로 근처 스팟 ID를 조회하는 API
-    @GetMapping("/nearby/{regionId}/{userX}/{userY}")
-    public QuestPopupResponseDto getNearbySpotId(@PathVariable Long regionId, @PathVariable Double userX, @PathVariable Double userY) {
-        return mapService.getQuestNearByMember(regionId, userY, userX); // 근처 스팟 ID 반환
+    @GetMapping("/nearby/{id}/{regionId}/{userX}/{userY}")
+    public QuestPopupResponseDto getNearbySpotId(@PathVariable Long id, @PathVariable Long regionId, @PathVariable Double userX, @PathVariable Double userY) {
+        return mapService.getQuestNearByMember(id, regionId, userY, userX); // 근처 스팟 ID 반환
     }
 }

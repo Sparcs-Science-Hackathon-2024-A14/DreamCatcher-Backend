@@ -28,7 +28,7 @@ public class ClickEventAPI {
             @PathVariable Double x, // 경도
             @PathVariable Double y) { // 위도
 
-        QuestPopupResponseDto nearestSpot = mapService.getQuestNearByMember(regionId, y, x);
+        QuestPopupResponseDto nearestSpot = mapService.getQuestNearByMember(id, regionId, y, x);
 
 
         if (nearestSpot != null) {
