@@ -7,7 +7,9 @@ import com.dream.catcher.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,7 +29,7 @@ public class LoginPageAPI implements LoginPageInfo {
      * @param age  사용자 나이
      * @return LoginResponseDto
      */
-    @GetMapping("{name}/{age}")
+    @PostMapping("{name}/{age}")
     public LoginResponseDto getAccessLogin(
             @PathVariable("name") String name,
             @PathVariable("age") Long age
