@@ -74,9 +74,9 @@ public class QuestService {
                     .optionFirst(currentQuest.getOptionFirst())
                     .optionSecond(currentQuest.getOptionSecond())
                     .build();
-        } else{   //QuestType.Finish
+        }else{   //QuestType.Finish
             QuestProcess previousQuest;
-            previousQuest = questProcessRepository.getPreviousQuestProcess(currentQuest.getQuest().getId() - 1, currentQuest.getId())
+            previousQuest = questProcessRepository.getPreviousQuestProcess(currentQuest.getQuest().getId(), currentQuest.getId() -1)
                     .get();
 
             QuestType previousQuestType = previousQuest.getQuestType();
