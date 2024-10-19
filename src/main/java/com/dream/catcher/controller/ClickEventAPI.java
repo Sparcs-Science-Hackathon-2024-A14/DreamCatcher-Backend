@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClickEventAPI {
     private final MapService mapService;
 
-    @GetMapping("/nearest-spot")
+    @GetMapping("/nearest-spot/{regionId}/{x}/{y}")
     public ResponseEntity<QuestPopupResponseDto> getNearestSpot(
-            @RequestParam Double x, // 경도
-            @RequestParam Double y, // 위도
-            @RequestParam Long regionId) {
+            @PathVariable Long regionId, // 지역 ID
+            @PathVariable Double x, // 경도
+            @PathVariable Double y) { // 위도
 
-        QuestPopupResponseDto nearestSpot = mapService.getQuestNearByMember(regionId, x, y);
+        QuestPopupResponseDto nearestSpot = mapService.getQuestNearByMember(regionId, y, x);
 
         if (nearestSpot != null) {
             return ResponseEntity.ok(nearestSpot);
