@@ -20,7 +20,7 @@ public class ClickEventAPI {
     private final MapService mapService;
 
     @GetMapping("/nearest-spot/{regionId}/{x}/{y}")
-    public ResponseEntity<QuestPopupResponseDto> getNearestSpot(
+    public QuestPopupResponseDto getNearestSpot(
             @PathVariable Long regionId, // 지역 ID
             @PathVariable Double x, // 경도
             @PathVariable Double y) { // 위도
@@ -28,9 +28,9 @@ public class ClickEventAPI {
         QuestPopupResponseDto nearestSpot = mapService.getQuestNearByMember(regionId, y, x);
 
         if (nearestSpot != null) {
-            return ResponseEntity.ok(nearestSpot);
+            return nearestSpot;
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // 10m 이내의 스팟이 없을 경우 404 반환
+            return null; // 10m 이내의 스팟이 없을 경우 404 반환
         }
     }
 }
