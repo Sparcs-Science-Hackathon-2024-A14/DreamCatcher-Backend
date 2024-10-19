@@ -19,6 +19,7 @@ public class LoginService {
         return memberRepository.isMemberLoginAllowed(name, age);
     }
 
+    @Transactional
     public Member register(String name, Long age){
 
         Member registerMember = Member.builder()
