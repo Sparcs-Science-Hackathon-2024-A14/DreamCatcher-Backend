@@ -13,7 +13,7 @@ spring:
   cache:
     type: redis  # 캐시 유형을 Redis로 설정
     redis:
-      time-to-live: 600000  # Redis 캐시의 TTL 설정 (600초)
+      time-to-live: 10800000  # Redis 캐시의 TTL 설정 (3시간)
       host: redis  # Docker Compose의 Redis 서비스 호스트
       port: 6379
       lettuce:
