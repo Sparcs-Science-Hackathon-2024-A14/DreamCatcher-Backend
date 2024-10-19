@@ -57,12 +57,12 @@ public class QuestService {
 
         QuestType currentQuestType = currentQuest.getQuestType();
         if(currentQuestType.equals(QuestType.PROCESS)){
-
-
             return QuestResponseDto.builder()
                     .id(currentQuest.getId())
                     .nextFirstId(currentQuest.getId() + 1L)
-                    .isNextBranch(questProcessRepository.findById(currentQuest.getId() + 1L).get().getQuestType().equals(QuestType.BRANCH))
+                    .isNextBranch(questProcessRepository.findById(currentQuest.getId() + 1L)
+                            .map(nextQuest -> nextQuest.getQuestType().equals(QuestType.BRANCH))
+                            .orElse(false)) // 값이 없으면 false 반환
                     .processImg(currentQuest.getProcessImg())
                     .processTTS(currentQuest.getProcessTTS())
                     .processDescription(currentQuest.getProcessDescription())
