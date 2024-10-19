@@ -58,7 +58,7 @@ public class QuestService {
                     .id(currentQuest.getId())
                     .nextFirstId(currentQuest.getId() + 1L)
                     .isNextBranch(questProcessRepository.findById(currentQuest.getId() + 1L).get().getQuestType().equals(QuestType.BRANCH))
-                    .isNextBranch(questProcessRepository.findById(currentQuest.getId()).get().getQuestType().equals(QuestType.BRANCH))
+                    .isCurrentBranch(questProcessRepository.findById(currentQuest.getId()).get().getQuestType().equals(QuestType.BRANCH))
                     .processImg(currentQuest.getProcessImg())
                     .processTTS(currentQuest.getProcessTTS())
                     .processDescription(currentQuest.getProcessDescription())
