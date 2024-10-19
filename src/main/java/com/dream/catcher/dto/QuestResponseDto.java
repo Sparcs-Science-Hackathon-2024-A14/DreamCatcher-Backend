@@ -32,6 +32,7 @@ public class QuestResponseDto {
     @Schema(description = "(중요)현재 퀘스트 페이지의 종류 " +
             "'process' : 단순 퀘스트 페이지, 'branch' 선택지가 있는 퀘스트 페이지, 'finish' 선택지를 선택했을 경우 나오는 결과 페이지")
     public QuestType questType;
+
     @Schema(description = "(중요)현재 퀘스트 페이지의 종류")
     public boolean isNextBranch;
 
