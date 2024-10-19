@@ -44,52 +44,51 @@ public class QuestService {
                 });
     }
 
-    public QuestResponseDto calculateNextProcess(QuestProcess nextQuest)
+    public QuestResponseDto calculateNextProcess(QuestProcess currentQuest)
     {
 
-        QuestType nextQuestType = nextQuest.getQuestType();
+        QuestType nextQuestType = currentQuest.getQuestType();
         if(nextQuestType.equals(QuestType.PROCESS)){
 
             return QuestResponseDto.builder()
-                    .id(nextQuest.getId())
-                    .nextFirstId(nextQuest.getId() + 1L)
-                    .processImg(nextQuest.getProcessImg())
-                    .processTTS(nextQuest.getProcessTTS())
-                    .processDescription(nextQuest.getProcessDescription())
-                    .optionFirst(nextQuest.getOptionFirst())
-                    .optionSecond(nextQuest.getOptionSecond())
+                    .id(currentQuest.getId())
+                    .nextFirstId(currentQuest.getId() + 1L)
+                    .processImg(currentQuest.getProcessImg())
+                    .processTTS(currentQuest.getProcessTTS())
+                    .processDescription(currentQuest.getProcessDescription())
+                    .optionFirst(currentQuest.getOptionFirst())
+                    .optionSecond(currentQuest.getOptionSecond())
                     .build();
 
         }else if(nextQuestType.equals(QuestType.BRANCH)){  // QuestType.BRANCH
 
-            Long answer = nextQuest.getAnswer();
+            Long answer = currentQuest.getAnswer();
 
             return QuestResponseDto.builder()
-                    .id(nextQuest.getId())
-                    .nextFirstId(nextQuest.getId() + (answer.equals(1L) ? 1L : 2L))
-                    .nextSecondId(nextQuest.getId() + (answer.equals(2L) ? 1L : 2L))
-                    .processImg(nextQuest.getProcessImg())
-                    .processTTS(nextQuest.getProcessTTS())
-                    .processDescription(nextQuest.getProcessDescription())
-                    .optionFirst(nextQuest.getOptionFirst())
-                    .optionSecond(nextQuest.getOptionSecond())
+                    .id(currentQuest.getId())
+                    .nextFirstId(currentQuest.getId() + (answer.equals(1L) ? 1L : 2L))
+                    .nextSecondId(currentQuest.getId() + (answer.equals(2L) ? 1L : 2L))
+                    .processImg(currentQuest.getProcessImg())
+                    .processTTS(currentQuest.getProcessTTS())
+                    .processDescription(currentQuest.getProcessDescription())
+                    .optionFirst(currentQuest.getOptionFirst())
+                    .optionSecond(currentQuest.getOptionSecond())
                     .build();
-        }
-        else{   //QuestType.Finish
+        } else{   //QuestType.Finish
             QuestProcess previousQuest;
-            previousQuest = questProcessRepository.getPreviousQuestProcess(nextQuest.getQuest().getId(), nextQuest.getId())
+            previousQuest = questProcessRepository.getPreviousQuestProcess(currentQuest.getQuest().getId() - 1, currentQuest.getId())
                     .get();
 
             QuestType previousQuestType = previousQuest.getQuestType();
 
             return QuestResponseDto.builder()
-                    .id(nextQuest.getId())
-                    .nextFirstId(nextQuest.getId() + (previousQuestType.equals(QuestType.FINISH) ? 1L : 2L))
-                    .processImg(nextQuest.getProcessImg())
-                    .processTTS(nextQuest.getProcessTTS())
-                    .processDescription(nextQuest.getProcessDescription())
-                    .optionFirst(nextQuest.getOptionFirst())
-                    .optionSecond(nextQuest.getOptionSecond())
+                    .id(currentQuest.getId())
+                    .nextFirstId(currentQuest.getId() + (previousQuestType.equals(QuestType.FINISH) ? 1L : 2L))
+                    .processImg(currentQuest.getProcessImg())
+                    .processTTS(currentQuest.getProcessTTS())
+                    .processDescription(currentQuest.getProcessDescription())
+                    .optionFirst(currentQuest.getOptionFirst())
+                    .optionSecond(currentQuest.getOptionSecond())
                     .build();
         }
     }
