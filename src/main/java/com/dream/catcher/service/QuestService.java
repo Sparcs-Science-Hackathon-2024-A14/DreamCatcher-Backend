@@ -9,11 +9,13 @@ import com.dream.catcher.repository.MemberRepository;
 import com.dream.catcher.repository.QuestProcessRepository;
 import com.dream.catcher.repository.QuestRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -44,6 +46,7 @@ public class QuestService {
 
     public QuestResponseDto calculateNextProcess(QuestProcess nextQuest)
     {
+
         QuestType nextQuestType = nextQuest.getQuestType();
         if(nextQuestType.equals(QuestType.PROCESS)){
 
@@ -64,7 +67,7 @@ public class QuestService {
             return QuestResponseDto.builder()
                     .id(nextQuest.getId())
                     .nextFirstId(nextQuest.getId() + (answer.equals(1L) ? 1L : 2L))
-                    .nextSecondId(nextQuest.getId() + (answer.equals(2L) ? 2L : 1L))
+                    .nextSecondId(nextQuest.getId() + (answer.equals(2L) ? 1L : 2L))
                     .processImg(nextQuest.getProcessImg())
                     .processTTS(nextQuest.getProcessTTS())
                     .processDescription(nextQuest.getProcessDescription())
