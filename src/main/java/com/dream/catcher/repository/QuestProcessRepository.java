@@ -12,16 +12,17 @@ import java.util.Optional;
 public interface QuestProcessRepository extends JpaRepository<QuestProcess, Long> {
 
 
-    @Query("select qp from QuestProcess qp where qp.quest.id =: questId and qp.id =: nextQuestId")
+    @Query("select qp from QuestProcess qp where qp.quest.id = :questId and qp.id = :nextQuestId")
     public Optional<QuestProcess> getQuestProcess(
             @Param("questId") Long questId,
-            @Param("nextQuestId") Long nextQuestID
+            @Param("nextQuestId") Long nextQuestId
     );
 
-    @Query("select qp from QuestProcess qp where qp.quest.id =: questId and qp.id =: previiousQuestId")
+    @Query("select qp from QuestProcess qp where qp.quest.id = :questId and qp.id = :previousQuestId")
     public Optional<QuestProcess> getPreviousQuestProcess(
             @Param("questId") Long questId,
             @Param("previousQuestId") Long previousQuestId
     );
+
 
 }
