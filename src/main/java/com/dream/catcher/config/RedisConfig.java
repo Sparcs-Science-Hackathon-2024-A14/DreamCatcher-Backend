@@ -16,9 +16,10 @@ public class RedisConfig {
     public LettuceConnectionFactory connectionFactory() {
         return new LettuceConnectionFactory();
     }
+
     @Bean
-    public RedisTemplate<Long, SpotPositionDto> redisTemplate() {
-        RedisTemplate<Long, SpotPositionDto> template = new RedisTemplate<>();
+    public RedisTemplate<String, SpotPositionDto> redisTemplate() {
+        RedisTemplate<String, SpotPositionDto> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory());
 
         // Key와 Value의 직렬화 방식을 설정
@@ -30,4 +31,5 @@ public class RedisConfig {
 
         return template;
     }
+
 }

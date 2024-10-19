@@ -7,7 +7,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
 
-import java.io.Serializable;
+import java.util.List;
 
 @SuperBuilder
 @Jacksonized
@@ -15,8 +15,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
-public class SpotPositionDto implements Serializable {
-    private Long id; // Spot의 id
-    private Double posX; // x좌표 -> 경도
-    private Double posY; // y좌표 -> 위도
+public class SpotPositionResponseDto {
+    List<SpotPositionDto> spotPositionDtoList;
 }

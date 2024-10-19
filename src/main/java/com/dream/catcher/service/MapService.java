@@ -1,10 +1,14 @@
 package com.dream.catcher.service;
 
+import com.dream.catcher.domain.Quest;
 import com.dream.catcher.dto.QuestPopupResponseDto;
 import com.dream.catcher.dto.SpotPositionDto;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
+import com.dream.catcher.dto.SpotPositionResponseDto;
 import com.dream.catcher.repository.QuestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +19,27 @@ public class MapService {
     private final RedisService redisService; // RedisService를 주입받습니다.
     private final QuestRepository questRepository;
 
+
+    public SpotPositionResponseDto getRegionSpotPosition(Long regionId) {
+        List<SpotPositionDto> spotPositionDtoList = questRepository.getQuestList()
+                .stream()
+                .filter(Objects::nonNull)  // Null 값 필터링
+                .map(this::convertToSpotPositionDto)  // 메서드 분리로 가독성 향상
+                .collect(Collectors.toList());
+
+        return SpotPositionResponseDto.builder()
+                .spotPositionDtoList(spotPositionDtoList)
+                .build();
+    }
+
+    // Dto 변환 메서드 분리
+    private SpotPositionDto convertToSpotPositionDto(Quest quest) {
+        return SpotPositionDto.builder()
+                .id(quest.getId())
+                .posX(quest.getPosX())
+                .posY(quest.getPosY())
+                .build();
+    }
 
     public QuestPopupResponseDto getQuestNearByMember(Long regionId, Double posX, Double posY){
 
