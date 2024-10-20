@@ -105,7 +105,7 @@ public class MapService {
 
         for (SpotPositionDto spot : spots) {
             double distance = calculateDistance(userX, userY, spot.getPosX(), spot.getPosY());
-            if (distance <= 300.0) { // 300m 이내의 스팟인지 확인
+            if (distance <= 50.0) { // 300m 이내의 스팟인지 확인
                 return spot.getId(); // 첫 번째로 발견된 근처 스팟의 ID 반환
             }
         }
