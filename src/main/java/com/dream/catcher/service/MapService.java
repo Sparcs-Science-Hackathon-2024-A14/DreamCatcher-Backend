@@ -27,11 +27,11 @@ public class MapService {
 
     public QuestPopupResponseDto getQuestByPosition(Long id, Double posX, Double posY){
 
-        Quest quest = questRepository.findById(id).orElse(null);
+        Quest quest = questRepository.findById(2L).orElse(null);
 
         // 사용자가 퀘스트를 수행하지 않았을 경우
         return QuestPopupResponseDto.builder()
-                    .questId(quest.getId())
+                    .questId(2L)
                     .questDescription(quest.getQuestDescription())
                     .questImg(quest.getQuestImg())
                     .questName(quest.getQuestName())
