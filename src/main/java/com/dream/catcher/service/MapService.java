@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.dream.catcher.dto.SpotPositionResponseDto;
+import com.dream.catcher.repository.MemberQuestRepository;
 import com.dream.catcher.repository.QuestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,28 @@ public class MapService {
     private final RedisService redisService; // RedisService를 주입받습니다.
     private final QuestRepository questRepository;
     private final QuestService questService;
+    private final MemberQuestRepository memberQuestRepository;
 
     private static final int R = 6371; // 지구의 반지름 (킬로미터)
+
+
+    public QuestPopupResponseDto getQuestByPosition(Long id, Double posX, Double posY){
+
+        Quest quest = questRepository.getQuestByPosition(posX, posY).orElseGet(()->null);
+
+        // 사용자가 퀘스트를 수행하지 않았을 경우
+        if(memberQuestRepository.isQuestExist(id, quest.getId())){
+            return null;
+        }else{
+            return QuestPopupResponseDto.builder()
+                    .questId(quest.getId())
+                    .questDescription(quest.getQuestDescription())
+                    .questImg(quest.getQuestImg())
+                    .questName(quest.getQuestName())
+                    .exitQuestProcessId(quest.getExitQuestProcessId())
+                    .build();
+        }
+    }
 
     public SpotPositionResponseDto getRegionSpotPosition(Long regionId) {
         if (regionId == null) {

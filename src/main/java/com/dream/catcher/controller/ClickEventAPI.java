@@ -28,15 +28,6 @@ public class ClickEventAPI {
             @PathVariable Double x, // 경도
             @PathVariable Double y) { // 위도
 
-        QuestPopupResponseDto nearestSpot = mapService.getQuestNearByMember(id, regionId, y, x);
-
-
-        if (nearestSpot != null) {
-            if(questService.existMemberQuest(id, nearestSpot.getQuestId()))
-                return null;
-            return nearestSpot;
-        } else {
-            return null; // 10m 이내의 스팟이 없을 경우 404 반환
-        }
+        return mapService.getQuestByPosition(id, x, y);
     }
 }
