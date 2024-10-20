@@ -30,17 +30,13 @@ public class MapService {
         Quest quest = questRepository.findById(id).orElse(null);
 
         // 사용자가 퀘스트를 수행하지 않았을 경우
-        if(memberQuestRepository.isQuestExist(id, quest.getId())){
-            return null;
-        }else{
-            return QuestPopupResponseDto.builder()
+        return QuestPopupResponseDto.builder()
                     .questId(quest.getId())
                     .questDescription(quest.getQuestDescription())
                     .questImg(quest.getQuestImg())
                     .questName(quest.getQuestName())
                     .exitQuestProcessId(quest.getExitQuestProcessId())
                     .build();
-        }
     }
 
     public SpotPositionResponseDto getRegionSpotPosition(Long regionId) {
