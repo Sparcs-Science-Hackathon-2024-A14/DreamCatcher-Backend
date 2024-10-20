@@ -27,7 +27,7 @@ public class MapService {
 
     public QuestPopupResponseDto getQuestByPosition(Long id, Double posX, Double posY){
 
-        Quest quest = questRepository.getQuestByPosition(posX, posY).orElseGet(()->null);
+        Quest quest = questRepository.findById(id).orElse(null);
 
         // 사용자가 퀘스트를 수행하지 않았을 경우
         if(memberQuestRepository.isQuestExist(id, quest.getId())){
